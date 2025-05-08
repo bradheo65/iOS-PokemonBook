@@ -15,7 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let mainViewController = ViewController()
+        
+        let networkService = NetworkService()
+        let pokemonRepository = PokemonRepositoryImpl(networkService: networkService)
+        let getPokemonsUseCase = GetPokemonsUseCaseImpl(pokemonRepository: pokemonRepository)
+        let viewModel = PokemonListViewModel(getPokemonsUseCase: getPokemonsUseCase)
+        let mainViewController = PokemonListViewController(viewModel: viewModel)
         
         window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()

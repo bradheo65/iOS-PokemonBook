@@ -42,7 +42,7 @@ final class PokemonRepositoryTests: XCTestCase {
         self.networkService = NetworkService(session: session)
         self.pokemonRepository = PokemonRepositoryImpl(networkService: networkService)
 
-        let pokemon = try await pokemonRepository.fetchPokemons(url: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10")
+        let pokemon = try await pokemonRepository.fetchPokemons(from: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10")
         
         XCTAssertEqual(pokemon.first?.name, mockGetPokemonResponse.results?.first?.name)
         XCTAssertEqual(pokemon.first?.url, mockGetPokemonResponse.results?.first?.url)
@@ -71,7 +71,7 @@ final class PokemonRepositoryTests: XCTestCase {
 
         // When // Then
         do {
-            let _ = try await pokemonRepository.fetchPokemons(url: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10")
+            let _ = try await pokemonRepository.fetchPokemons(from: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10")
             XCTFail("Expected to throw, but succeeded.")
         } catch NetworkError.invalidServerResponse {
             XCTAssertTrue(true)
@@ -104,12 +104,41 @@ final class PokemonRepositoryTests: XCTestCase {
 
         // When // Then
         do {
-            let _ = try await pokemonRepository.fetchPokemons(url: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10")
+            let _ = try await pokemonRepository.fetchPokemons(from: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10")
             XCTFail("Expected to throw, but succeeded.")
         } catch NetworkError.httpError(let code) {
             XCTAssertEqual(code, 404)
         } catch {
             XCTFail("Unexpected error: \(error)")
         }
+    }
+    
+    func testFetchPokemon_Success() async throws {
+        let mockGetPokemonDetailResponse: GetPokemonDetailResponse = .init(
+            abilities: nil,
+            baseExperience: nil,
+            cries: nil,
+            forms: [
+                .init(
+                    name: "bulbasaur",
+                    url: "https://pokeapi.co/api/v2/pokemon-form/1/"
+                )
+            ]
+        )
+
+        let data = try JSONEncoder().encode(mockGetPokemonDetailResponse)
+        let response = HTTPURLResponse(
+            url: URL(string: "https://pokeapi.co/api/v2/pokemon/1")!,
+            statusCode: 200,
+            httpVersion: nil,
+            headerFields: nil
+        )!
+        self.session = MockURLSession(data: data, response: response)
+        self.networkService = NetworkService(session: session)
+        self.pokemonRepository = PokemonRepositoryImpl(networkService: networkService)
+
+        let pokemon = try await pokemonRepository.fetchPokemonDetail(from: "https://pokeapi.co/api/v2/pokemon/1")
+        XCTAssertEqual(pokemon.forms?.first?.name, mockGetPokemonDetailResponse.forms?.first?.name)
+        XCTAssertEqual(pokemon.forms?.first?.url, mockGetPokemonDetailResponse.forms?.first?.url)
     }
 }

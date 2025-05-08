@@ -8,6 +8,8 @@
 import Foundation
 
 enum NetworkError: Error {
+    case invalidURL
     case invalidServerResponse
     case httpError(code: Int)
+    case imageConvertingError
 }

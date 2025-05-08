@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class NetworkService: NetworkServiceProtocol {
     private let session: URLSessionProtocol
@@ -26,5 +27,19 @@ final class NetworkService: NetworkServiceProtocol {
         let result = try JSONDecoder().decode(T.self, from: data)
         
         return result
+    }
+    
+    func fetchImage(_ urlRequest: URLRequest) async throws -> UIImage {
+        let (data, response) = try await session.data(for: urlRequest)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidServerResponse
+        }
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.httpError(code: httpResponse.statusCode)
+        }
+        guard let image = UIImage(data: data) else {
+            throw NetworkError.imageConvertingError
+        }
+        return image
     }
 }
