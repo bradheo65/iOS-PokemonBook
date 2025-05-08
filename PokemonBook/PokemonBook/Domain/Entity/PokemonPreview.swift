@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct PokemonPreview {
+struct PokemonPreview: Hashable {
     let image: UIImage
     let name: String
 }
