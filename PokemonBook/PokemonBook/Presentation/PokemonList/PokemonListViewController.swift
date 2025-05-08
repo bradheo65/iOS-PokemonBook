@@ -9,8 +9,6 @@ import UIKit
 import Combine
 
 final class PokemonListViewController: UIViewController {
-    private let viewModel: PokemonListViewModel
-    
     private let input: PassthroughSubject<PokemonListViewModel.Input, Never> = .init()
     private var cancellables: Set<AnyCancellable> = []
     
@@ -25,6 +23,8 @@ final class PokemonListViewController: UIViewController {
         case main
     }
     private var dataSource: UITableViewDiffableDataSource<Section, PokemonPreview>!
+
+    private let viewModel: PokemonListViewModel
 
     init(viewModel: PokemonListViewModel) {
         self.viewModel = viewModel
