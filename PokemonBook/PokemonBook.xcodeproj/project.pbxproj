@@ -14,19 +14,11 @@
 			remoteGlobalIDString = A3B0AC962DCB23EB00C2FB70;
 			remoteInfo = PokemonBook;
 		};
-		A3B0ACB82DCB23EC00C2FB70 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A3B0AC8F2DCB23EB00C2FB70 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A3B0AC962DCB23EB00C2FB70;
-			remoteInfo = PokemonBook;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A3B0AC972DCB23EB00C2FB70 /* PokemonBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B0ACAD2DCB23EC00C2FB70 /* PokemonBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3B0ACB72DCB23EC00C2FB70 /* PokemonBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -53,11 +45,6 @@
 			path = PokemonBookTests;
 			sourceTree = "<group>";
 		};
-		A3B0ACBA2DCB23EC00C2FB70 /* PokemonBookUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PokemonBookUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,13 +62,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A3B0ACB42DCB23EC00C2FB70 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -90,7 +70,6 @@
 			children = (
 				A3B0AC992DCB23EB00C2FB70 /* PokemonBook */,
 				A3B0ACB02DCB23EC00C2FB70 /* PokemonBookTests */,
-				A3B0ACBA2DCB23EC00C2FB70 /* PokemonBookUITests */,
 				A3B0AC982DCB23EB00C2FB70 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,7 +79,6 @@
 			children = (
 				A3B0AC972DCB23EB00C2FB70 /* PokemonBook.app */,
 				A3B0ACAD2DCB23EC00C2FB70 /* PokemonBookTests.xctest */,
-				A3B0ACB72DCB23EC00C2FB70 /* PokemonBookUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,29 +131,6 @@
 			productReference = A3B0ACAD2DCB23EC00C2FB70 /* PokemonBookTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A3B0ACB62DCB23EC00C2FB70 /* PokemonBookUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A3B0ACC82DCB23EC00C2FB70 /* Build configuration list for PBXNativeTarget "PokemonBookUITests" */;
-			buildPhases = (
-				A3B0ACB32DCB23EC00C2FB70 /* Sources */,
-				A3B0ACB42DCB23EC00C2FB70 /* Frameworks */,
-				A3B0ACB52DCB23EC00C2FB70 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A3B0ACB92DCB23EC00C2FB70 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				A3B0ACBA2DCB23EC00C2FB70 /* PokemonBookUITests */,
-			);
-			name = PokemonBookUITests;
-			packageProductDependencies = (
-			);
-			productName = PokemonBookUITests;
-			productReference = A3B0ACB72DCB23EC00C2FB70 /* PokemonBookUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -190,10 +145,6 @@
 						CreatedOnToolsVersion = 16.0;
 					};
 					A3B0ACAC2DCB23EC00C2FB70 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = A3B0AC962DCB23EB00C2FB70;
-					};
-					A3B0ACB62DCB23EC00C2FB70 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = A3B0AC962DCB23EB00C2FB70;
 					};
@@ -215,7 +166,6 @@
 			targets = (
 				A3B0AC962DCB23EB00C2FB70 /* PokemonBook */,
 				A3B0ACAC2DCB23EC00C2FB70 /* PokemonBookTests */,
-				A3B0ACB62DCB23EC00C2FB70 /* PokemonBookUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,13 +179,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A3B0ACAB2DCB23EC00C2FB70 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A3B0ACB52DCB23EC00C2FB70 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,13 +202,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A3B0ACB32DCB23EC00C2FB70 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -273,11 +209,6 @@
 			isa = PBXTargetDependency;
 			target = A3B0AC962DCB23EB00C2FB70 /* PokemonBook */;
 			targetProxy = A3B0ACAE2DCB23EC00C2FB70 /* PBXContainerItemProxy */;
-		};
-		A3B0ACB92DCB23EC00C2FB70 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A3B0AC962DCB23EB00C2FB70 /* PokemonBook */;
-			targetProxy = A3B0ACB82DCB23EC00C2FB70 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -511,50 +442,6 @@
 			};
 			name = Release;
 		};
-		A3B0ACC92DCB23EC00C2FB70 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B99296K282;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.PokemonBookUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_TARGET_NAME = PokemonBook;
-			};
-			name = Debug;
-		};
-		A3B0ACCA2DCB23EC00C2FB70 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B99296K282;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.PokemonBookUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_TARGET_NAME = PokemonBook;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -581,15 +468,6 @@
 			buildConfigurations = (
 				A3B0ACC62DCB23EC00C2FB70 /* Debug */,
 				A3B0ACC72DCB23EC00C2FB70 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A3B0ACC82DCB23EC00C2FB70 /* Build configuration list for PBXNativeTarget "PokemonBookUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A3B0ACC92DCB23EC00C2FB70 /* Debug */,
-				A3B0ACCA2DCB23EC00C2FB70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
