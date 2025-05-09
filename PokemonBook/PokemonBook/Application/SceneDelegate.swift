@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let getPokemonsUseCase = GetPokemonsUseCaseImpl(pokemonRepository: pokemonRepository)
         let viewModel = PokemonListViewModel(getPokemonsUseCase: getPokemonsUseCase)
         let mainViewController = PokemonListViewController(viewModel: viewModel)
-        
-        window?.rootViewController = mainViewController
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

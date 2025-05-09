@@ -23,6 +23,7 @@ final class PokemonListViewController: UIViewController {
         case main
     }
     private var dataSource: UITableViewDiffableDataSource<Section, PokemonPreview>!
+    private var pokemons: [PokemonPreview] = []
 
     private let viewModel: PokemonListViewModel
 
@@ -40,11 +41,25 @@ final class PokemonListViewController: UIViewController {
         super.viewDidLoad()
        
         setupView()
+        setupSearchController()
         setupTableView()
         setupLayout()
         setupBinding()
         
         self.input.send(.viewDidLoad)
+    }
+}
+
+extension PokemonListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        let filterPokemons = pokemons.filter { $0.name.localizedStandardContains(text) }
+        
+        if text.isEmpty {
+            applySnapshot(with: pokemons, isAmiating: true)
+        } else {
+            applySnapshot(with: filterPokemons, isAmiating: true)
+        }
     }
 }
 
@@ -54,6 +69,16 @@ private extension PokemonListViewController {
         [tableView].forEach { view in
             self.view.addSubview(view)
         }
+    }
+    
+    func setupSearchController() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.navigationItem.title = "Pokémon"
     }
     
     func setupTableView() {
@@ -91,17 +116,18 @@ private extension PokemonListViewController {
             .sink { [weak self] event in
                 switch event {
                 case .didFinishPokemonPreviewFetch(let pokemonPreview):
-                    self?.applySnapshot(with: pokemonPreview)
+                    self?.pokemons = pokemonPreview
+                    self?.applySnapshot(with: pokemonPreview, isAmiating: false)
                 }
             }
             .store(in: &cancellables)
     }
     
-    func applySnapshot(with pokemonPreview: [PokemonPreview]) {
+    func applySnapshot(with pokemonPreview: [PokemonPreview], isAmiating: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, PokemonPreview>()
         snapshot.appendSections([.main])
         snapshot.appendItems(pokemonPreview)
         
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: isAmiating)
     }
 }
