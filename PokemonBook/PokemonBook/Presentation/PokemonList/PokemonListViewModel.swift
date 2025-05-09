@@ -7,14 +7,17 @@
 
 import Foundation
 import Combine
+import UIKit
 
 final class PokemonListViewModel: ViewModelType {
     enum Input {
         case viewDidLoad
+        case didTapRow(data: PokemonPreview)
     }
     
     enum Output {
         case didFinishPokemonPreviewFetch([PokemonPreview])
+        case showAlert(title: String, message: String)
     }
     
     private let output: PassthroughSubject<Output, Never> = .init()
@@ -32,6 +35,13 @@ final class PokemonListViewModel: ViewModelType {
                 switch event {
                 case .viewDidLoad:
                     self?.fetchPokemons()
+                case .didTapRow(let data):
+                    self?.output.send(
+                        .showAlert(
+                            title: data.name,
+                            message: data.name
+                        )
+                    )
                 }
             }
             .store(in: &cancellable)

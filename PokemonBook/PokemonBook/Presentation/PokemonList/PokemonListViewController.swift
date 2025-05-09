@@ -15,7 +15,7 @@ final class PokemonListViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView: UITableView = .init(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        tableView.delegate = self
         return tableView
     }()
     
@@ -60,6 +60,15 @@ extension PokemonListViewController: UISearchResultsUpdating {
         } else {
             applySnapshot(with: filterPokemons, isAmiating: true)
         }
+    }
+}
+
+extension PokemonListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let pokemon = pokemons[indexPath.row]
+        
+        self.input.send(.didTapRow(data: pokemon))
     }
 }
 
@@ -118,6 +127,8 @@ private extension PokemonListViewController {
                 case .didFinishPokemonPreviewFetch(let pokemonPreview):
                     self?.pokemons = pokemonPreview
                     self?.applySnapshot(with: pokemonPreview, isAmiating: false)
+                case .showAlert(let title, let message):
+                    self?.showAlert(with: title, and: message)
                 }
             }
             .store(in: &cancellables)
@@ -129,5 +140,15 @@ private extension PokemonListViewController {
         snapshot.appendItems(pokemonPreview)
         
         dataSource.apply(snapshot, animatingDifferences: isAmiating)
+    }
+    
+    func showAlert(with title: String, and message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(.init(title: "OK", style: .default))
+        self.present(alert, animated: true)
     }
 }
