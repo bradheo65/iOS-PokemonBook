@@ -9,4 +9,5 @@ import Foundation
 
 struct PokemonDetail {
     let forms: [Form]?
+    let species: Pokemon?
 }

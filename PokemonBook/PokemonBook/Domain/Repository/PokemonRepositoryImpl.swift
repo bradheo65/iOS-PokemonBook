@@ -72,4 +72,19 @@ final class PokemonRepositoryImpl: PokemonRepository {
         )
         return pokemonPreview
     }
+    
+    func fetchPokmonSpecies(of pokemon: Pokemon) async throws -> PokemonSpecies {
+        guard
+            let url = pokemon.url,
+            let url = URL(string: url)
+        else {
+            throw NetworkError.invalidURL
+        }
+        let urlRequest = URLRequest(url: url)
+        let response = try await networkService.request(
+            GetPokemonSpeciesResponse.self,
+            urlRequest
+        )
+        return response.toEntity()
+    }
 }

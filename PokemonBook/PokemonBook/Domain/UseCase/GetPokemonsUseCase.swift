@@ -22,22 +22,26 @@ final class GetPokemonsUseCaseImpl: GetPokemonsUseCase {
         /*
          1. Get Pokemon List
          2. Get Pokemon Detail Info
-         3. Get Pokemon Form
-         4. Get Pokemon Image
+         3. Get Pokemon Species
+         4. Get Pokemon Form
+         5. Get Pokemon Image
          */
         var pokemonPreviews: [PokemonPreview] = []
         let pokemons = try await pokemonRepository.fetchPokemons(from: url)
         for pokemon in pokemons {
             let pokemonDetail = try await pokemonRepository.fetchPokemonDetail(from: pokemon.url)
-            for form in pokemonDetail.forms ?? [] {
-                let pokemonForm = try await pokemonRepository.fetchPokemonForm(from: form.url)
-                let pokemon: Pokemon = .init(
-                    name: pokemonForm.pokemon?.name,
-                    url: pokemonForm.sprites?.frontDefault
-                )
-                let pokemonPreview = try await pokemonRepository.fetchPokemonImage(of: pokemon)
-                pokemonPreviews.append(pokemonPreview)
-            }
+            
+            let form = pokemonDetail.forms?.first
+            let species = pokemonDetail.species
+            
+            let pokemonSpecie = try await pokemonRepository.fetchPokmonSpecies(of: species!)
+            let pokemonForm = try await pokemonRepository.fetchPokemonForm(from: form?.url)
+            let pokemon: Pokemon = .init(
+                name: pokemonSpecie.name,
+                url: pokemonForm.sprites?.frontDefault
+            )
+            let pokemonPreview = try await pokemonRepository.fetchPokemonImage(of: pokemon)
+            pokemonPreviews.append(pokemonPreview)
         }
         return pokemonPreviews
     }

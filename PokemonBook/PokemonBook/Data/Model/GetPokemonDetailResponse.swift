@@ -12,15 +12,19 @@ struct GetPokemonDetailResponse: Codable {
     let baseExperience: Int?
     let cries: Cries?
     let forms: [Form]?
+    let species: Pokemon?
 
     enum CodingKeys: String, CodingKey {
         case abilities
         case baseExperience = "base_experience"
-        case cries, forms
+        case cries, forms, species
     }
     
     func toEntity() -> PokemonDetail {
-        let pokmonDetail: PokemonDetail = .init(forms: forms)
+        let pokmonDetail: PokemonDetail = .init(
+            forms: forms,
+            species: species
+        )
         return pokmonDetail
     }
 }

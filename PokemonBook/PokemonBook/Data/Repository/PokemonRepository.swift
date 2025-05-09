@@ -12,4 +12,5 @@ protocol PokemonRepository {
     func fetchPokemonDetail(from url: String?) async throws -> PokemonDetail
     func fetchPokemonForm(from url: String?) async throws -> PokemonForm
     func fetchPokemonImage(of pokemon: Pokemon) async throws -> PokemonPreview
+    func fetchPokmonSpecies(of pokemon: Pokemon) async throws -> PokemonSpecies
 }
