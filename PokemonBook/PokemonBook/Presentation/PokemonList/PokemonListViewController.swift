@@ -53,13 +53,8 @@ final class PokemonListViewController: UIViewController {
 extension PokemonListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        let filterPokemons = pokemons.filter { $0.name.localizedStandardContains(text) }
         
-        if text.isEmpty {
-            applySnapshot(with: pokemons, isAmiating: true)
-        } else {
-            applySnapshot(with: filterPokemons, isAmiating: true)
-        }
+        self.input.send(.searchTextDidChange(pokemons: pokemons, name: text))
     }
 }
 
@@ -127,6 +122,8 @@ private extension PokemonListViewController {
                 case .didFinishPokemonPreviewFetch(let pokemonPreview):
                     self?.pokemons = pokemonPreview
                     self?.applySnapshot(with: pokemonPreview, isAmiating: false)
+                case .didFinishSearch(let pokemons):
+                    self?.applySnapshot(with: pokemons, isAmiating: true)
                 case .showAlert(let title, let message):
                     self?.showAlert(with: title, and: message)
                 }

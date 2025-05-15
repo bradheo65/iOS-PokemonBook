@@ -12,11 +12,13 @@ import UIKit
 final class PokemonListViewModel: ViewModelType {
     enum Input {
         case viewDidLoad
+        case searchTextDidChange(pokemons: [PokemonPreview], name: String)
         case didTapRow(data: PokemonPreview)
     }
     
     enum Output {
         case didFinishPokemonPreviewFetch([PokemonPreview])
+        case didFinishSearch([PokemonPreview])
         case showAlert(title: String, message: String)
     }
     
@@ -35,6 +37,8 @@ final class PokemonListViewModel: ViewModelType {
                 switch event {
                 case .viewDidLoad:
                     self?.fetchPokemons()
+                case .searchTextDidChange(let pokemons, let name):
+                    self?.filterPokemons(pokemons, by: name)
                 case .didTapRow(let data):
                     self?.output.send(
                         .showAlert(
@@ -58,6 +62,16 @@ private extension PokemonListViewModel {
             } catch {
                 print(error.localizedDescription)
             }
+        }
+    }
+    
+    func filterPokemons(_ pokemons: [PokemonPreview], by name: String) {
+        let filterPokemons = pokemons.filter { $0.name.localizedStandardContains(name) }
+
+        if name.isEmpty {
+            self.output.send(.didFinishSearch(pokemons))
+        } else {
+            self.output.send(.didFinishSearch(filterPokemons))
         }
     }
 }
